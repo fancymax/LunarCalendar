@@ -328,7 +328,7 @@ class CalendarCell:NSButton
                 cal.timeZone = NSTimeZone(abbreviation: "UTC")!
                 let unitFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue
                 let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: _representedDate!)
-                self.lunarStr = LunarSolarConverter.Conventer2lunarStr(components)
+                self.lunarStr = LunarSolarConverter.Conventer2lunarStr(_representedDate!)
                 self.solarStr = "\(components.day)"
             }
             else{
