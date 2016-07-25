@@ -333,7 +333,7 @@ class CalendarBackgroud:NSView
 
 class CalendarCell:NSButton
 {
-    weak var owner:LunarCalendarView?
+    weak var owner:LunarCalendarView!
     
     var representedDate:NSDate?{
         didSet{
@@ -380,17 +380,17 @@ class CalendarCell:NSButton
     }
     
     override func drawRect(dirtyRect: NSRect) {
-        if (self.owner != nil) && (self.representedDate != nil) {
+        if  self.representedDate != nil {
             NSGraphicsContext.saveGraphicsState();
             let bounds = self.bounds
-            self.owner?.backgroundColor!.set()
+            self.owner.backgroundColor!.set()
             NSRectFill(bounds)
             
             if self.selected {
                 var circleRect = NSInsetRect(bounds, 3.5, 3.5)
                 circleRect.origin.y += 1
                 let bzc = NSBezierPath(ovalInRect: circleRect)
-                self.owner?.selectionColor!.set()
+                self.owner.selectionColor!.set()
                 bzc.fill()
             }
             let paragraphStyle = NSMutableParagraphStyle()
@@ -399,7 +399,7 @@ class CalendarCell:NSButton
             
             //today
             if self.isToday(){
-                self.owner?.todayMarkerColor!.set()
+                self.owner.todayMarkerColor!.set()
                 let bottomLine = NSBezierPath()
                 bottomLine.moveToPoint(NSMakePoint(NSMinX(bounds), NSMaxY(bounds)))
                 bottomLine.lineToPoint(NSMakePoint(NSMaxX(bounds), NSMaxY(bounds)))
@@ -429,7 +429,7 @@ class CalendarCell:NSButton
                 self.enabled = false
             }
             else {
-                textColor = self.owner!.textColor
+                textColor = self.owner.textColor
                 self.enabled = true
             }
             let attrs = [NSParagraphStyleAttributeName:paragraphStyle,
