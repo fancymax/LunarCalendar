@@ -334,23 +334,17 @@ class CalendarBackgroud:NSView
 class CalendarCell:NSButton
 {
     weak var owner:LunarCalendarView?
-    private var _representedDate:NSDate?
+    
     var representedDate:NSDate?{
-        get{
-            return _representedDate
+        didSet{
+            self.needsDisplay = true
         }
-        set{
-            _representedDate = newValue
-            if _representedDate != nil{
-                let components = LunarCalendarView.toUTCDateComponent(_representedDate!)
-                self.lunarStr = LunarSolarConverter.Conventer2lunarStr(_representedDate!)
+        willSet(newValue){
+            if let date = newValue {
+                let components = LunarCalendarView.toUTCDateComponent(date)
+                self.lunarStr = LunarSolarConverter.Conventer2lunarStr(date)
                 self.solarStr = "\(components.day)"
             }
-            else{
-                self.lunarStr = ""
-                self.solarStr = ""
-            }
-            self.needsDisplay = true
         }
     }
     
@@ -375,92 +369,84 @@ class CalendarCell:NSButton
     
     private func commonInit(){
         self.bordered = false
-        self._representedDate = nil
     }
     
     private func isToday()->Bool{
-        if(self._representedDate != nil){
-            return LunarCalendarView.isSameDate(self._representedDate!, d2: NSDate())
-        }
-        else{
-            return false
-        }
+        return LunarCalendarView.isSameDate(self.representedDate!, d2: NSDate())
     }
     
     private func beforeToday()->Bool{
-        if(self._representedDate != nil){
-            return LunarCalendarView.isDate(self._representedDate!, beforeDate: NSDate())
-        }
-        else{
-            return false
-        }
+        return LunarCalendarView.isDate(self.representedDate!, beforeDate: NSDate())
     }
     
     override func drawRect(dirtyRect: NSRect) {
-        if self.owner != nil{
+        if (self.owner != nil) && (self.representedDate != nil) {
             NSGraphicsContext.saveGraphicsState();
             let bounds = self.bounds
             self.owner?.backgroundColor!.set()
             NSRectFill(bounds)
             
-            if self._representedDate != nil{
-                if self.selected {
-                    var circleRect = NSInsetRect(bounds, 3.5, 3.5)
-                    circleRect.origin.y += 1
-                    let bzc = NSBezierPath(ovalInRect: circleRect)
-                    self.owner?.selectionColor!.set()
-                    bzc.fill()
-                }
-                let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.lineBreakMode = .ByWordWrapping
-                paragraphStyle.alignment = .Center
-                
-                //today
-                if self.isToday(){
-                    self.owner?.todayMarkerColor!.set()
-                    let bottomLine = NSBezierPath()
-                    bottomLine.moveToPoint(NSMakePoint(NSMinX(bounds), NSMaxY(bounds)))
-                    bottomLine.lineToPoint(NSMakePoint(NSMaxX(bounds), NSMaxY(bounds)))
-                    bottomLine.lineWidth = 4.0
-                    bottomLine.stroke()
-                }
-                
-                //lunar
-                if !self.selected {
-                    let lunarFont = NSFont(name: self.font!.fontName, size: 8)!
-                    let attrs = [NSParagraphStyleAttributeName:paragraphStyle,
-                        NSFontAttributeName:lunarFont,
-                        NSForegroundColorAttributeName:NSColor.grayColor()]
-                    let size = (self.lunarStr as NSString).sizeWithAttributes(attrs)
-                    let r = NSMakeRect(bounds.origin.x,
-                        bounds.origin.y + (bounds.size.height - size.height)/2.0 + 12,
-                        bounds.size.width, bounds.size.height)
-                    (self.lunarStr as NSString).drawInRect(r, withAttributes: attrs)
-                    
-                }
-                
-                //solar
-                let solarFont = NSFont(name: self.font!.fontName, size: 15)!
-                var textColor: NSColor!
-                if self.beforeToday() {
-                    textColor = NSColor.grayColor()
-                    self.enabled = false
-                }
-                else {
-                    textColor = self.owner!.textColor
-                    self.enabled = true
-                }
-                let attrs = [NSParagraphStyleAttributeName:paragraphStyle,
-                    NSFontAttributeName:solarFont,
-                    NSForegroundColorAttributeName: textColor]
-                let size = (self.solarStr as NSString).sizeWithAttributes(attrs)
-                let r = NSMakeRect(bounds.origin.x,
-                    bounds.origin.y + (bounds.size.height - size.height)/2.0-1,
-                    bounds.size.width, bounds.size.height)
-                (self.solarStr as NSString).drawInRect(r, withAttributes: attrs)
+            if self.selected {
+                var circleRect = NSInsetRect(bounds, 3.5, 3.5)
+                circleRect.origin.y += 1
+                let bzc = NSBezierPath(ovalInRect: circleRect)
+                self.owner?.selectionColor!.set()
+                bzc.fill()
             }
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineBreakMode = .ByWordWrapping
+            paragraphStyle.alignment = .Center
+            
+            //today
+            if self.isToday(){
+                self.owner?.todayMarkerColor!.set()
+                let bottomLine = NSBezierPath()
+                bottomLine.moveToPoint(NSMakePoint(NSMinX(bounds), NSMaxY(bounds)))
+                bottomLine.lineToPoint(NSMakePoint(NSMaxX(bounds), NSMaxY(bounds)))
+                bottomLine.lineWidth = 4.0
+                bottomLine.stroke()
+            }
+            
+            //lunar
+            if !self.selected {
+                let lunarFont = NSFont(name: self.font!.fontName, size: 8)!
+                let attrs = [NSParagraphStyleAttributeName:paragraphStyle,
+                    NSFontAttributeName:lunarFont,
+                    NSForegroundColorAttributeName:NSColor.grayColor()]
+                let size = (self.lunarStr as NSString).sizeWithAttributes(attrs)
+                let r = NSMakeRect(bounds.origin.x,
+                    bounds.origin.y + (bounds.size.height - size.height)/2.0 + 12,
+                    bounds.size.width, bounds.size.height)
+                (self.lunarStr as NSString).drawInRect(r, withAttributes: attrs)
+                
+            }
+            
+            //solar
+            let solarFont = NSFont(name: self.font!.fontName, size: 15)!
+            var textColor: NSColor!
+            if self.beforeToday() {
+                textColor = NSColor.grayColor()
+                self.enabled = false
+            }
+            else {
+                textColor = self.owner!.textColor
+                self.enabled = true
+            }
+            let attrs = [NSParagraphStyleAttributeName:paragraphStyle,
+                NSFontAttributeName:solarFont,
+                NSForegroundColorAttributeName: textColor]
+            let size = (self.solarStr as NSString).sizeWithAttributes(attrs)
+            let r = NSMakeRect(bounds.origin.x,
+                bounds.origin.y + (bounds.size.height - size.height)/2.0-1,
+                bounds.size.width, bounds.size.height)
+            (self.solarStr as NSString).drawInRect(r, withAttributes: attrs)
+            
             NSGraphicsContext.restoreGraphicsState()
         }
+        else {
+            self.enabled = false
+        }
+        
     }
     
 }
