@@ -52,27 +52,43 @@ class LunarCalendarView:NSViewController{
     private var dayCells:[[CalendarCell]]?
     private var dayLabels:[NSTextField]?
     
-    static func isSameDate(d1:NSDate,d2:NSDate)->Bool{
+    static func toUTCDateComponent(d:NSDate) -> NSDateComponents {
         let cal  = NSCalendar.currentCalendar()
         cal.timeZone = NSTimeZone(abbreviation: "UTC")!
-        let unitFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue
-        var components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: d1)
-        let ry = components.year
-        let rm = components.month
-        let rd = components.day
+        let dateFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue | NSCalendarUnit.Weekday.rawValue
+        return cal.components(NSCalendarUnit(rawValue: dateFlag), fromDate: d)
+    }
+    
+    static func isSameDate(d1:NSDate,d2:NSDate)->Bool{
+        let d1SysTime = LunarCalendarView.toUTCDateComponent(d1)
+        let d2SysTime = LunarCalendarView.toUTCDateComponent(d2)
         
-        components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: d2)
-        let ty = components.year
-        let tm = components.month
-        let td = components.day
-        
-        if ((ry == ty)&&(rm == tm)&&(rd == td))
+        if ((d1SysTime.year == d2SysTime.year)&&(d1SysTime.month == d2SysTime.month)&&(d1SysTime.day == d2SysTime.day))
         {
             return true
         }
         else{
             return false
         }
+    }
+    
+    static func isDate(d1:NSDate,beforeDate d2:NSDate)->Bool{
+        let d1SysTime = LunarCalendarView.toUTCDateComponent(d1)
+        let d2SysTime = LunarCalendarView.toUTCDateComponent(d2)
+        
+        if d1SysTime.year < d2SysTime.year {
+            return true
+        }
+        
+        if ((d1SysTime.year == d2SysTime.year)&&(d1SysTime.month < d2SysTime.month)) {
+            return true
+        }
+        
+        if ((d1SysTime.year == d2SysTime.year)&&(d1SysTime.month == d2SysTime.month)&&(d1SysTime.day < d2SysTime.day)) {
+            return true
+        }
+        
+        return false
     }
     
     init(){
@@ -97,16 +113,11 @@ class LunarCalendarView:NSViewController{
     }
     
     private func setCalendarTitle(){
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = NSTimeZone(abbreviation: "UTC")!
-        let unitFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue
-        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self.date!)
-        let month = components.month
-        let year = components.year
+        let components = LunarCalendarView.toUTCDateComponent(self.date!)
         
         let df = NSDateFormatter()
-        let monthName = df.standaloneMonthSymbols[month - 1]
-        self.calendarTittle.stringValue = "\(monthName), \(year)"
+        let monthName = df.standaloneMonthSymbols[components.month - 1]
+        self.calendarTittle.stringValue = "\(monthName), \(components.year)"
     }
     
     private func setCellSelectedStatusBy(date: NSDate?) {
@@ -135,10 +146,9 @@ class LunarCalendarView:NSViewController{
                 cell.selected = false
             }
         }
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = NSTimeZone(abbreviation: "UTC")!
-        let unitFlag = NSCalendarUnit.Weekday.rawValue
-        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self.monthDay(1)!)
+        
+        let components = LunarCalendarView.toUTCDateComponent(self.monthDay(1)!)
+        
         let firstDay = components.weekday
         let lastDay = lastDayOfTheMonth()
         var beginCol = colForDay(firstDay)
@@ -281,11 +291,19 @@ class LunarCalendarView:NSViewController{
     }
     
     @IBAction func nextMonth(sender: NSButton){
-        self.stepMonth(1)
+        let currentSysTime = LunarCalendarView.toUTCDateComponent(NSDate())
+        let selectSysTime = LunarCalendarView.toUTCDateComponent(self.date!)
+        if selectSysTime.month < currentSysTime.month + 2 {
+            self.stepMonth(1)
+        }
     }
     
     @IBAction func prevMonth(sender: NSButton){
-        self.stepMonth(-1)
+        let currentSysTime = LunarCalendarView.toUTCDateComponent(NSDate())
+        let selectSysTime = LunarCalendarView.toUTCDateComponent(self.date!)
+        if selectSysTime.month > currentSysTime.month {
+            self.stepMonth(-1)
+        }
     }
 }
 
@@ -324,10 +342,7 @@ class CalendarCell:NSButton
         set{
             _representedDate = newValue
             if _representedDate != nil{
-                let cal = NSCalendar.currentCalendar()
-                cal.timeZone = NSTimeZone(abbreviation: "UTC")!
-                let unitFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue
-                let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: _representedDate!)
+                let components = LunarCalendarView.toUTCDateComponent(_representedDate!)
                 self.lunarStr = LunarSolarConverter.Conventer2lunarStr(_representedDate!)
                 self.solarStr = "\(components.day)"
             }
@@ -338,19 +353,15 @@ class CalendarCell:NSButton
             self.needsDisplay = true
         }
     }
+    
     private var solarStr:String!
     private var lunarStr:String!
-    private var _selected:Bool = false
-    var selected:Bool{
-        get{
-            return _selected
-        }
-        set{
-            _selected = newValue
+    
+    var selected:Bool = false {
+        didSet{
             self.needsDisplay = true
         }
     }
-    
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -376,6 +387,15 @@ class CalendarCell:NSButton
         }
     }
     
+    private func beforeToday()->Bool{
+        if(self._representedDate != nil){
+            return LunarCalendarView.isDate(self._representedDate!, beforeDate: NSDate())
+        }
+        else{
+            return false
+        }
+    }
+    
     override func drawRect(dirtyRect: NSRect) {
         if self.owner != nil{
             NSGraphicsContext.saveGraphicsState();
@@ -384,7 +404,7 @@ class CalendarCell:NSButton
             NSRectFill(bounds)
             
             if self._representedDate != nil{
-                if self._selected {
+                if self.selected {
                     var circleRect = NSInsetRect(bounds, 3.5, 3.5)
                     circleRect.origin.y += 1
                     let bzc = NSBezierPath(ovalInRect: circleRect)
@@ -394,17 +414,6 @@ class CalendarCell:NSButton
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.lineBreakMode = .ByWordWrapping
                 paragraphStyle.alignment = .Center
-                
-                //solar
-                let solarFont = NSFont(name: self.font!.fontName, size: 15)!
-                let attrs = [NSParagraphStyleAttributeName:paragraphStyle,
-                    NSFontAttributeName:solarFont,
-                    NSForegroundColorAttributeName:self.owner!.textColor!]
-                let size = (self.solarStr as NSString).sizeWithAttributes(attrs)
-                let r = NSMakeRect(bounds.origin.x,
-                    bounds.origin.y + (bounds.size.height - size.height)/2.0-1,
-                    bounds.size.width, bounds.size.height)
-                (self.solarStr as NSString).drawInRect(r, withAttributes: attrs)
                 
                 //today
                 if self.isToday(){
@@ -429,6 +438,26 @@ class CalendarCell:NSButton
                     (self.lunarStr as NSString).drawInRect(r, withAttributes: attrs)
                     
                 }
+                
+                //solar
+                let solarFont = NSFont(name: self.font!.fontName, size: 15)!
+                var textColor: NSColor!
+                if self.beforeToday() {
+                    textColor = NSColor.grayColor()
+                    self.enabled = false
+                }
+                else {
+                    textColor = self.owner!.textColor
+                    self.enabled = true
+                }
+                let attrs = [NSParagraphStyleAttributeName:paragraphStyle,
+                    NSFontAttributeName:solarFont,
+                    NSForegroundColorAttributeName: textColor]
+                let size = (self.solarStr as NSString).sizeWithAttributes(attrs)
+                let r = NSMakeRect(bounds.origin.x,
+                    bounds.origin.y + (bounds.size.height - size.height)/2.0-1,
+                    bounds.size.width, bounds.size.height)
+                (self.solarStr as NSString).drawInRect(r, withAttributes: attrs)
             }
             NSGraphicsContext.restoreGraphicsState()
         }

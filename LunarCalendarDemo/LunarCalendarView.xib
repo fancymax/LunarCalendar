@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LunarCalendarView" customModule="LunarCalendarDemo" customModuleProvider="target">
@@ -19,7 +19,6 @@
             <subviews>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BlP-kJ-xuc">
                     <rect key="frame" x="13" y="288" width="16" height="16"/>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSLeftFacingTriangleTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="WlZ-AQ-tDz">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system" size="10"/>
@@ -30,7 +29,6 @@
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xav-vk-JSt">
                     <rect key="frame" x="293" y="288" width="16" height="16"/>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSRightFacingTriangleTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ZPm-GI-u7f">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system" size="10"/>
@@ -41,7 +39,6 @@
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tkh-5A-R9F">
                     <rect key="frame" x="50" y="288" width="200" height="25"/>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="February, 2015" id="XGh-fr-BH3">
                         <font key="font" size="17" name="HelveticaNeue-Light"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -54,7 +51,6 @@
                         <constraint firstAttribute="height" constant="21" id="50n-M6-6nD"/>
                         <constraint firstAttribute="width" constant="40" id="HRT-Pi-faQ"/>
                     </constraints>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="SUN" id="OZi-0a-oQa">
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -67,7 +63,6 @@
                         <constraint firstAttribute="width" constant="40" id="2Cd-hj-BZa"/>
                         <constraint firstAttribute="height" constant="21" id="3EX-EE-12V"/>
                     </constraints>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="MON" id="WAe-LT-LgB">
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -80,7 +75,6 @@
                         <constraint firstAttribute="width" constant="40" id="W2L-o3-rck"/>
                         <constraint firstAttribute="height" constant="21" id="dD8-EL-JEN"/>
                     </constraints>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="TUE" id="yeT-Vu-PYh">
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -93,7 +87,6 @@
                         <constraint firstAttribute="height" constant="21" id="FU7-0b-zEF"/>
                         <constraint firstAttribute="width" constant="40" id="GCH-RI-r5b"/>
                     </constraints>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="WED" id="fWx-il-a0r">
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -106,7 +99,6 @@
                         <constraint firstAttribute="width" constant="40" id="IMy-e3-DxE"/>
                         <constraint firstAttribute="height" constant="21" id="oLN-Ya-SuH"/>
                     </constraints>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="THU" id="wJZ-AJ-Fdn">
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -119,7 +111,6 @@
                         <constraint firstAttribute="width" constant="40" id="Iju-Pc-2IQ"/>
                         <constraint firstAttribute="height" constant="21" id="drk-aB-sE2"/>
                     </constraints>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="FRI" id="LjW-Oi-BQ7">
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -132,7 +123,6 @@
                         <constraint firstAttribute="width" constant="40" id="Q3H-Zi-l11"/>
                         <constraint firstAttribute="height" constant="21" id="Y5a-aK-WMv"/>
                     </constraints>
-                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="SAT" id="Zym-4s-zSe">
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -145,7 +135,6 @@
                         <constraint firstAttribute="width" constant="40" id="CQG-4U-Dcc"/>
                         <constraint firstAttribute="height" constant="40" id="nye-CF-Eka"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="30" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MIW-KY-37U">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -157,7 +146,6 @@
                         <constraint firstAttribute="width" constant="40" id="Xdm-Zc-Sll"/>
                         <constraint firstAttribute="height" constant="40" id="pki-mD-Pcg"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W1z-kk-PHd">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -169,7 +157,6 @@
                         <constraint firstAttribute="height" constant="40" id="QBY-N5-qC3"/>
                         <constraint firstAttribute="width" constant="40" id="haN-CX-ihM"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OcZ-aN-XAQ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -181,7 +168,6 @@
                         <constraint firstAttribute="height" constant="40" id="4gs-w0-ZEN"/>
                         <constraint firstAttribute="width" constant="40" id="MmL-Wa-aTi"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Feb-em-8OG">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -193,7 +179,6 @@
                         <constraint firstAttribute="width" constant="40" id="fGF-mX-fqH"/>
                         <constraint firstAttribute="height" constant="40" id="sdE-df-va2"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mHt-d3-XCa">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -205,7 +190,6 @@
                         <constraint firstAttribute="height" constant="40" id="O2d-nl-xPx"/>
                         <constraint firstAttribute="width" constant="40" id="Qkh-qo-Lqj"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C5p-ro-YCM">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -217,7 +201,6 @@
                         <constraint firstAttribute="height" constant="40" id="Ipe-MX-Zhb"/>
                         <constraint firstAttribute="width" constant="40" id="NCP-5K-HFm"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="1" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SHq-RW-zON">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -229,7 +212,6 @@
                         <constraint firstAttribute="height" constant="40" id="pff-Xa-R7f"/>
                         <constraint firstAttribute="width" constant="40" id="x4b-ai-18Y"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="2" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Nbw-Qm-k9D">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -241,7 +223,6 @@
                         <constraint firstAttribute="width" constant="40" id="Jpf-8B-0u2"/>
                         <constraint firstAttribute="height" constant="40" id="xrA-fe-u79"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="3" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gzw-Jo-hGb">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -253,7 +234,6 @@
                         <constraint firstAttribute="height" constant="40" id="IMN-Oc-k3B"/>
                         <constraint firstAttribute="width" constant="40" id="xql-5t-zRI"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="4" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Btp-wm-IzP">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -265,7 +245,6 @@
                         <constraint firstAttribute="height" constant="40" id="VYZ-9K-klb"/>
                         <constraint firstAttribute="width" constant="40" id="uoX-n1-5Lc"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="5" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hQT-wS-cPF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -277,7 +256,6 @@
                         <constraint firstAttribute="width" constant="40" id="AyQ-zH-bi2"/>
                         <constraint firstAttribute="height" constant="40" id="YIh-Wa-Nfz"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="6" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="M60-SM-xre">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -289,7 +267,6 @@
                         <constraint firstAttribute="width" constant="40" id="2xI-Pw-9yr"/>
                         <constraint firstAttribute="height" constant="40" id="awQ-Ug-pNb"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="7" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Lg1-DN-ABg">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -301,7 +278,6 @@
                         <constraint firstAttribute="height" constant="40" id="PxH-da-Ihh"/>
                         <constraint firstAttribute="width" constant="40" id="b5Z-kb-ZlL"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="8" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WV7-Jr-wsl">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -313,7 +289,6 @@
                         <constraint firstAttribute="height" constant="40" id="3SQ-v7-6PI"/>
                         <constraint firstAttribute="width" constant="40" id="5gB-If-n4j"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="9" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EQ6-0h-gLM">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -325,7 +300,6 @@
                         <constraint firstAttribute="width" constant="40" id="HCP-ga-PTx"/>
                         <constraint firstAttribute="height" constant="40" id="Uce-oc-qg8"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="10" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UWW-h5-OFd">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -337,7 +311,6 @@
                         <constraint firstAttribute="width" constant="40" id="IAI-yt-nko"/>
                         <constraint firstAttribute="height" constant="40" id="Sfl-YE-IJb"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="11" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KXY-Fc-iwQ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -349,7 +322,6 @@
                         <constraint firstAttribute="width" constant="40" id="fay-ry-vc9"/>
                         <constraint firstAttribute="height" constant="40" id="lkn-yY-A2G"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="12" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AZ8-RV-T79">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -361,7 +333,6 @@
                         <constraint firstAttribute="height" constant="40" id="UUI-ag-3bo"/>
                         <constraint firstAttribute="width" constant="40" id="m1t-ds-J9p"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="13" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eRa-f9-3V3">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -373,7 +344,6 @@
                         <constraint firstAttribute="width" constant="40" id="m7C-pD-2nd"/>
                         <constraint firstAttribute="height" constant="40" id="x8B-Yj-Nqi"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="14" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e4D-VG-N9T">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -385,7 +355,6 @@
                         <constraint firstAttribute="width" constant="40" id="esx-pO-RlR"/>
                         <constraint firstAttribute="height" constant="40" id="jeS-81-ACB"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="15" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Vv4-wK-dQv">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -397,7 +366,6 @@
                         <constraint firstAttribute="width" constant="40" id="an8-LE-65j"/>
                         <constraint firstAttribute="height" constant="40" id="hjR-SS-Uwd"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="16" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YOv-By-f3W">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -409,7 +377,6 @@
                         <constraint firstAttribute="height" constant="40" id="Q0Y-AP-VUf"/>
                         <constraint firstAttribute="width" constant="40" id="W4q-I0-U0D"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="17" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aAg-GQ-FrL">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -421,7 +388,6 @@
                         <constraint firstAttribute="width" constant="40" id="MlD-G3-P9t"/>
                         <constraint firstAttribute="height" constant="40" id="QbY-AM-6eb"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="18" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e1M-WE-Dlh">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -433,7 +399,6 @@
                         <constraint firstAttribute="width" constant="40" id="A4s-Hf-K4K"/>
                         <constraint firstAttribute="height" constant="40" id="Dy3-AH-mLg"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="19" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YVU-cp-VmN">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -445,7 +410,6 @@
                         <constraint firstAttribute="height" constant="40" id="2Hm-tj-LnH"/>
                         <constraint firstAttribute="width" constant="40" id="XR4-L8-jOY"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="20" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5l9-2h-9Jc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -457,7 +421,6 @@
                         <constraint firstAttribute="width" constant="40" id="KcK-Bc-2wK"/>
                         <constraint firstAttribute="height" constant="40" id="dOY-Ex-abT"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="21" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="656-G5-cuJ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -469,7 +432,6 @@
                         <constraint firstAttribute="height" constant="40" id="SGe-3i-tXm"/>
                         <constraint firstAttribute="width" constant="40" id="x8E-c7-SRN"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="22" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ktP-rh-emF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -481,7 +443,6 @@
                         <constraint firstAttribute="width" constant="40" id="4u3-Va-S0M"/>
                         <constraint firstAttribute="height" constant="40" id="A7T-YY-F3t"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="23" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gHK-D0-gQy">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -493,7 +454,6 @@
                         <constraint firstAttribute="width" constant="40" id="gPZ-MV-nOg"/>
                         <constraint firstAttribute="height" constant="40" id="gdk-Ze-zyn"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="24" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YeI-FW-21a">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -505,7 +465,6 @@
                         <constraint firstAttribute="height" constant="40" id="voE-ws-ZQX"/>
                         <constraint firstAttribute="width" constant="40" id="zkw-Gd-aA9"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="25" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dYx-rT-nI0">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -517,7 +476,6 @@
                         <constraint firstAttribute="width" constant="40" id="Bes-Oe-B5B"/>
                         <constraint firstAttribute="height" constant="40" id="OIQ-ba-3pL"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="26" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="w4U-Nd-v87">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -529,7 +487,6 @@
                         <constraint firstAttribute="width" constant="40" id="7xY-Be-KnM"/>
                         <constraint firstAttribute="height" constant="40" id="qDS-7M-fFM"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="27" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="beW-W4-a3n">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -541,7 +498,6 @@
                         <constraint firstAttribute="width" constant="40" id="4I0-gZ-y8i"/>
                         <constraint firstAttribute="height" constant="40" id="P1h-0S-CPg"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="28" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Lhe-So-s7M">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -553,7 +509,6 @@
                         <constraint firstAttribute="height" constant="40" id="1rD-Wj-hPO"/>
                         <constraint firstAttribute="width" constant="40" id="qai-ib-uDc"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="29" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gf0-HS-Kmp">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -565,7 +520,6 @@
                         <constraint firstAttribute="width" constant="40" id="D7q-EI-vRK"/>
                         <constraint firstAttribute="height" constant="40" id="eyM-PM-WeV"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="30" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TbJ-4Z-xuz">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -577,7 +531,6 @@
                         <constraint firstAttribute="width" constant="40" id="XRP-BA-Pda"/>
                         <constraint firstAttribute="height" constant="40" id="oxD-Tj-GTi"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" title="31" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ebR-Sd-5hJ" userLabel="Button">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -589,7 +542,6 @@
                         <constraint firstAttribute="width" constant="40" id="08O-Cv-Iaf"/>
                         <constraint firstAttribute="height" constant="40" id="8W5-EV-0Q7"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nDd-0x-H7t">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -601,7 +553,6 @@
                         <constraint firstAttribute="height" constant="40" id="Fwz-ct-OtQ"/>
                         <constraint firstAttribute="width" constant="40" id="rE2-Yf-qPG"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JMz-nw-XyR">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -613,7 +564,6 @@
                         <constraint firstAttribute="width" constant="40" id="KXQ-7t-VlI"/>
                         <constraint firstAttribute="height" constant="40" id="xj1-zF-Ybd"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V9W-t9-PkD">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -625,7 +575,6 @@
                         <constraint firstAttribute="height" constant="40" id="Bz1-2c-blQ"/>
                         <constraint firstAttribute="width" constant="40" id="Ocg-Pu-3bX"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qFv-tB-May">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -637,7 +586,6 @@
                         <constraint firstAttribute="width" constant="40" id="Ubq-VY-nSr"/>
                         <constraint firstAttribute="height" constant="40" id="erT-We-WTD"/>
                     </constraints>
-                    <animations/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SeV-uI-Fcl">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="HelveticaNeue-Thin"/>
@@ -746,7 +694,6 @@
                 <constraint firstItem="rhO-2A-ief" firstAttribute="centerY" secondItem="q6N-3k-UV5" secondAttribute="centerY" id="ysg-RM-lJC"/>
                 <constraint firstItem="PMq-KV-oF1" firstAttribute="centerY" secondItem="teK-Ti-APq" secondAttribute="centerY" id="zdt-J5-IQR"/>
             </constraints>
-            <animations/>
             <point key="canvasLocation" x="556.5" y="882"/>
         </customView>
     </objects>
