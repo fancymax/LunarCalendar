@@ -21,6 +21,7 @@ class LunarCalendarView:NSViewController{
     var selectionColor:NSColor?
     var todayMarkerColor:NSColor?
     var dayMakerColor:NSColor?
+    var limitedDays:Double?
     
     weak var delegate:LunarCalendarViewDelegate?
     
@@ -89,6 +90,11 @@ class LunarCalendarView:NSViewController{
         }
         
         return false
+    }
+    
+    static func isDate(d1:NSDate,inLimitDays days:Double)->Bool{
+        let limitedDate = NSDate(timeIntervalSinceNow: days * 24.0 * 3600)
+        return LunarCalendarView.isDate(d1, beforeDate: limitedDate)
     }
     
     init(){
@@ -293,7 +299,12 @@ class LunarCalendarView:NSViewController{
     @IBAction func nextMonth(sender: NSButton){
         let currentSysTime = LunarCalendarView.toUTCDateComponent(NSDate())
         let selectSysTime = LunarCalendarView.toUTCDateComponent(self.date!)
-        if selectSysTime.month < currentSysTime.month + 2 {
+        var step = 2
+        if currentSysTime.month < 3 || currentSysTime.month > 10 {
+            step = 3
+            
+        }
+        if selectSysTime.month < currentSysTime.month + step {
             self.stepMonth(1)
         }
     }
@@ -379,6 +390,14 @@ class CalendarCell:NSButton
         return LunarCalendarView.isDate(self.representedDate!, beforeDate: NSDate())
     }
     
+    private func isInLimitedDate()->Bool{
+        var days = 60.0
+        if self.owner.limitedDays != nil {
+            days = self.owner.limitedDays!
+        }
+        return LunarCalendarView.isDate(self.representedDate!, inLimitDays: days)
+    }
+    
     override func drawRect(dirtyRect: NSRect) {
         if  self.representedDate != nil {
             NSGraphicsContext.saveGraphicsState();
@@ -424,7 +443,7 @@ class CalendarCell:NSButton
             //solar
             let solarFont = NSFont(name: self.font!.fontName, size: 15)!
             var textColor: NSColor!
-            if self.beforeToday() {
+            if (self.beforeToday() || (!self.isInLimitedDate())) {
                 textColor = NSColor.grayColor()
                 self.enabled = false
             }
