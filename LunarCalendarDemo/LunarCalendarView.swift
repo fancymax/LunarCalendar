@@ -23,13 +23,11 @@ class LunarCalendarView:NSViewController{
     var dayMakerColor:NSColor?
     
     weak var delegate:LunarCalendarViewDelegate?
-    private var _date:NSDate?
+    
     var date:NSDate?{
-        get{
-            return _date
-        }
-        set{
-            _date = self.toUTC(newValue!)
+        didSet{
+            date = self.toUTC(date!)
+            
             if !self.viewLoaded {
                 return
             }
@@ -39,31 +37,15 @@ class LunarCalendarView:NSViewController{
         }
     }
     
-    private var _selectedDate:NSDate?
     var selectedDate:NSDate?{
-        get{
-            return _selectedDate
-        }
-        set{
-            _selectedDate = self.toUTC(newValue!)
+        didSet {
+            selectedDate = self.toUTC(selectedDate!)
             
             if !self.viewLoaded {
                 return
             }
             
-            for row in 0...5 {
-                for col in 0...6{
-                    let cell = self.dayCells![row][col]
-                    if ((cell.representedDate != nil)&&(_selectedDate != nil)){
-                        let isSelected = LunarCalendarView.isSameDate(cell.representedDate!, d2: _selectedDate!)
-                        cell.selected = isSelected
-                    }
-                    else{
-                        cell.selected = false
-                    }
-                }
-            }
-            
+            self.setCellSelectedStatusBy(selectedDate)
         }
     }
     
@@ -110,25 +92,39 @@ class LunarCalendarView:NSViewController{
         self.selectionColor = NSColor.redColor()
         self.todayMarkerColor = NSColor.greenColor()
         self.dayMakerColor = NSColor.darkGrayColor()
-        self.dayCells = [[CalendarCell]]()
-        for _ in 0...5 {
-            self.dayCells!.append([CalendarCell]())
-        }
         
-        self._date = NSDate()
+        self.date = NSDate()
     }
     
     private func setCalendarTitle(){
         let cal = NSCalendar.currentCalendar()
         cal.timeZone = NSTimeZone(abbreviation: "UTC")!
         let unitFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue
-        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self._date!)
+        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self.date!)
         let month = components.month
         let year = components.year
         
         let df = NSDateFormatter()
         let monthName = df.standaloneMonthSymbols[month - 1]
         self.calendarTittle.stringValue = "\(monthName), \(year)"
+    }
+    
+    private func setCellSelectedStatusBy(date: NSDate?) {
+        if self.dayCells == nil {
+            return
+        }
+        for row in 0...5 {
+            for col in 0...6{
+                let cell = self.dayCells![row][col]
+                if ((cell.representedDate != nil)&&(date != nil)){
+                    let isSelected = LunarCalendarView.isSameDate(cell.representedDate!, d2: date!)
+                    cell.selected = isSelected
+                }
+                else{
+                    cell.selected = false
+                }
+            }
+        }
     }
     
     func layoutCalendar(){
@@ -145,19 +141,19 @@ class LunarCalendarView:NSViewController{
         let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self.monthDay(1)!)
         let firstDay = components.weekday
         let lastDay = lastDayOfTheMonth()
-        var col = colForDay(firstDay)
+        var beginCol = colForDay(firstDay)
         var day = 1
-        for row in 0...5{
-            for ; col<7; col+=1 {
+        for row in 0...5 {
+            for col in beginCol..<7 {
                 if day <= lastDay{
                     let cell = self.dayCells![row][col]
                     let d = self.monthDay(day)
                     cell.representedDate = d
-                    cell.selected = LunarCalendarView.isSameDate(d!, d2: self._selectedDate!)
+                    cell.selected = LunarCalendarView.isSameDate(d!, d2: self.selectedDate!)
                     day += 1
                 }
             }
-            col = 0
+            beginCol = 0
         }
     }
     
@@ -169,13 +165,18 @@ class LunarCalendarView:NSViewController{
             let d = self.viewByID(_id) as! NSTextField
             self.dayLabels!.append(d)
         }
+        
+        self.dayCells = [[CalendarCell]]()
+        for _ in 0...5 {
+            self.dayCells!.append([CalendarCell]())
+        }
         for row in 0...5 {
             for col in 0...6 {
                 let i = row * 7 + col + 1
                 let _id = "c\(i)"
                 let cell = self.viewByID(_id) as! CalendarCell
                 cell.target = self
-                cell.action = Selector("cellClicked:")
+                cell.action = #selector(LunarCalendarView.cellClicked(_:))
                 self.dayCells![row].append(cell)
                 cell.owner = self
             }
@@ -213,10 +214,10 @@ class LunarCalendarView:NSViewController{
         }
         let cell = sender as! CalendarCell
         cell.selected = true
-        self._selectedDate = cell.representedDate
+        self.selectedDate = cell.representedDate
         if self.delegate != nil{
             if self.delegate!.respondsToSelector(Selector("didSelectDate:")){
-                self.delegate!.didSelectDate(self._selectedDate!)
+                self.delegate!.didSelectDate(self.selectedDate!)
             }
         }
     }
@@ -233,7 +234,7 @@ class LunarCalendarView:NSViewController{
         let cal = NSCalendar.currentCalendar()
         cal.timeZone = NSTimeZone(abbreviation: "UTC")!
         let unitFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue
-        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self._date!)
+        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self.date!)
         let comps = NSDateComponents()
         comps.day = day
         comps.year = components.year
@@ -244,7 +245,7 @@ class LunarCalendarView:NSViewController{
     func lastDayOfTheMonth() -> Int{
         let cal = NSCalendar.currentCalendar()
         cal.timeZone = NSTimeZone(abbreviation: "UTC")!
-        let daysRange = cal.rangeOfUnit(.Day, inUnit: .Month, forDate: self._date!)
+        let daysRange = cal.rangeOfUnit(.Day, inUnit: .Month, forDate: self.date!)
         return daysRange.length
     }
     
@@ -263,7 +264,7 @@ class LunarCalendarView:NSViewController{
         let cal = NSCalendar.currentCalendar()
         cal.timeZone = NSTimeZone(abbreviation: "UTC")!
         let unitFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue
-        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self._date!)
+        let components = cal.components(NSCalendarUnit(rawValue: unitFlag), fromDate: self.date!)
         var month = components.month + dm
         var year = components.year
         if month > 12 {
@@ -293,12 +294,11 @@ class CalendarBackgroud:NSView
     var backgroundColor:NSColor?
     
     required init?(coder: NSCoder) {
-        //todo??
         super.init(coder: coder)
         self.commonInit()
     }
     
-    required override init(frame frameRect: NSRect) {
+    override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.commonInit()
     }

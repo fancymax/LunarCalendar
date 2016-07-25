@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, LunarCalendarViewDelegate {
     	let date = self.dateFormatter.dateFromString(dateField.stringValue)
     	self.calendarView.date = date
     	self.calendarView.selectedDate = date;
+        print("\(date) \(self.calendarView.selectedDate)")
         
         let cellRect = sender.bounds
         self.calendarPopover?.showRelativeToRect(cellRect, ofView: sender, preferredEdge: .MaxY)
@@ -55,6 +56,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, LunarCalendarViewDelegate {
     func didSelectDate(selectedDate: NSDate) {
         self.calendarPopover?.close()
         self.dateField.stringValue = self.dateFormatter.stringFromDate(selectedDate)
+    }
+    
+    func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
+        return true
     }
 }
 
