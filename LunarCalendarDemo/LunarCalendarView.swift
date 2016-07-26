@@ -53,48 +53,22 @@ class LunarCalendarView:NSViewController{
     private var dayCells:[[CalendarCell]]?
     private var dayLabels:[NSTextField]?
     
-    static func toUTCDateComponent(d:NSDate) -> NSDateComponents {
+    private func toUTCDateComponent(d:NSDate) -> NSDateComponents {
         let cal  = NSCalendar.currentCalendar()
         cal.timeZone = NSTimeZone(abbreviation: "UTC")!
         let dateFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue | NSCalendarUnit.Weekday.rawValue
         return cal.components(NSCalendarUnit(rawValue: dateFlag), fromDate: d)
     }
     
-    static func isSameDate(d1:NSDate,d2:NSDate)->Bool{
-        let d1SysTime = LunarCalendarView.toUTCDateComponent(d1)
-        let d2SysTime = LunarCalendarView.toUTCDateComponent(d2)
-        
-        if ((d1SysTime.year == d2SysTime.year)&&(d1SysTime.month == d2SysTime.month)&&(d1SysTime.day == d2SysTime.day))
-        {
+    private func isSameDay(d1:NSDate,d2:NSDate)->Bool{
+        let cal  = NSCalendar.currentCalendar()
+        let result = cal.compareDate(d1, toDate: d2, toUnitGranularity: NSCalendarUnit.Day)
+        if result == NSComparisonResult.OrderedSame {
             return true
         }
-        else{
+        else {
             return false
         }
-    }
-    
-    static func isDate(d1:NSDate,beforeDate d2:NSDate)->Bool{
-        let d1SysTime = LunarCalendarView.toUTCDateComponent(d1)
-        let d2SysTime = LunarCalendarView.toUTCDateComponent(d2)
-        
-        if d1SysTime.year < d2SysTime.year {
-            return true
-        }
-        
-        if ((d1SysTime.year == d2SysTime.year)&&(d1SysTime.month < d2SysTime.month)) {
-            return true
-        }
-        
-        if ((d1SysTime.year == d2SysTime.year)&&(d1SysTime.month == d2SysTime.month)&&(d1SysTime.day < d2SysTime.day)) {
-            return true
-        }
-        
-        return false
-    }
-    
-    static func isDate(d1:NSDate,inLimitDays days:Double)->Bool{
-        let limitedDate = NSDate(timeIntervalSinceNow: days * 24.0 * 3600)
-        return LunarCalendarView.isDate(d1, beforeDate: limitedDate)
     }
     
     init(){
@@ -119,7 +93,7 @@ class LunarCalendarView:NSViewController{
     }
     
     private func setCalendarTitle(){
-        let components = LunarCalendarView.toUTCDateComponent(self.date!)
+        let components = toUTCDateComponent(self.date!)
         
         let df = NSDateFormatter()
         let monthName = df.standaloneMonthSymbols[components.month - 1]
@@ -134,7 +108,7 @@ class LunarCalendarView:NSViewController{
             for col in 0...6{
                 let cell = self.dayCells![row][col]
                 if ((cell.representedDate != nil)&&(date != nil)){
-                    let isSelected = LunarCalendarView.isSameDate(cell.representedDate!, d2: date!)
+                    let isSelected = isSameDay(cell.representedDate!, d2: date!)
                     cell.selected = isSelected
                 }
                 else{
@@ -153,7 +127,7 @@ class LunarCalendarView:NSViewController{
             }
         }
         
-        let components = LunarCalendarView.toUTCDateComponent(self.monthDay(1)!)
+        let components = toUTCDateComponent(self.monthDay(1)!)
         
         let firstDay = components.weekday
         let lastDay = lastDayOfTheMonth()
@@ -165,7 +139,7 @@ class LunarCalendarView:NSViewController{
                     let cell = self.dayCells![row][col]
                     let d = self.monthDay(day)
                     cell.representedDate = d
-                    cell.selected = LunarCalendarView.isSameDate(d!, d2: self.selectedDate!)
+                    cell.selected = isSameDay(d!, d2: self.selectedDate!)
                     day += 1
                 }
             }
@@ -297,8 +271,8 @@ class LunarCalendarView:NSViewController{
     }
     
     @IBAction func nextMonth(sender: NSButton){
-        let currentSysTime = LunarCalendarView.toUTCDateComponent(NSDate())
-        let selectSysTime = LunarCalendarView.toUTCDateComponent(self.date!)
+        let currentSysTime = toUTCDateComponent(NSDate())
+        let selectSysTime = toUTCDateComponent(self.date!)
         var step = 2
         if currentSysTime.month < 3 || currentSysTime.month > 10 {
             step = 3
@@ -310,8 +284,8 @@ class LunarCalendarView:NSViewController{
     }
     
     @IBAction func prevMonth(sender: NSButton){
-        let currentSysTime = LunarCalendarView.toUTCDateComponent(NSDate())
-        let selectSysTime = LunarCalendarView.toUTCDateComponent(self.date!)
+        let currentSysTime = toUTCDateComponent(NSDate())
+        let selectSysTime = toUTCDateComponent(self.date!)
         if selectSysTime.month > currentSysTime.month {
             self.stepMonth(-1)
         }
@@ -352,7 +326,7 @@ class CalendarCell:NSButton
         }
         willSet(newValue){
             if let date = newValue {
-                let components = LunarCalendarView.toUTCDateComponent(date)
+                let components = toUTCDateComponent(date)
                 self.lunarStr = LunarSolarConverter.Conventer2lunarStr(date)
                 self.solarStr = "\(components.day)"
             }
@@ -383,11 +357,42 @@ class CalendarCell:NSButton
     }
     
     private func isToday()->Bool{
-        return LunarCalendarView.isSameDate(self.representedDate!, d2: NSDate())
+        let calendar  = NSCalendar.currentCalendar()
+        return calendar.isDateInToday(self.representedDate!)
+    }
+    
+    private func toUTCDateComponent(d:NSDate) -> NSDateComponents {
+        let cal  = NSCalendar.currentCalendar()
+        cal.timeZone = NSTimeZone(abbreviation: "UTC")!
+        let dateFlag = NSCalendarUnit.Day.rawValue | NSCalendarUnit.Month.rawValue | NSCalendarUnit.Year.rawValue | NSCalendarUnit.Weekday.rawValue
+        return cal.components(NSCalendarUnit(rawValue: dateFlag), fromDate: d)
+    }
+    
+    private func isDate(d1:NSDate,beforeDate d2:NSDate)->Bool{
+        let cal  = NSCalendar.currentCalendar()
+        let result = cal.compareDate(d1, toDate: d2, toUnitGranularity: NSCalendarUnit.Day)
+        if result == NSComparisonResult.OrderedAscending {
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     private func beforeToday()->Bool{
-        return LunarCalendarView.isDate(self.representedDate!, beforeDate: NSDate())
+        return isDate(self.representedDate!, beforeDate: NSDate())
+    }
+    
+    private func isDate(d1:NSDate,inLimitDays days:Double)->Bool{
+        let limitedDate = NSDate(timeIntervalSinceNow: days * 24.0 * 3600)
+        let cal  = NSCalendar.currentCalendar()
+        let result = cal.compareDate(d1, toDate: limitedDate, toUnitGranularity: NSCalendarUnit.Day)
+        if result == NSComparisonResult.OrderedAscending {
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     private func isInLimitedDate()->Bool{
@@ -395,7 +400,7 @@ class CalendarCell:NSButton
         if self.owner.limitedDays != nil {
             days = self.owner.limitedDays!
         }
-        return LunarCalendarView.isDate(self.representedDate!, inLimitDays: days)
+        return isDate(self.representedDate!, inLimitDays: days)
     }
     
     override func drawRect(dirtyRect: NSRect) {
