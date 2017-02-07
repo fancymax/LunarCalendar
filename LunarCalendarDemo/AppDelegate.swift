@@ -13,30 +13,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, LunarCalendarViewDelegate {
 
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var dateField:NSTextField!
-    @IBOutlet weak var dateFormatter:NSDateFormatter!
+    @IBOutlet weak var dateFormatter:DateFormatter!
     
     var calendarPopover:NSPopover?
     var calendarView:LunarCalendarView!
 
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        self.dateField.stringValue = dateFormatter.stringFromDate(NSDate())
+        self.dateField.stringValue = dateFormatter.string(from: Date())
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
-    @IBAction func showCalendar(sender: NSButton){
+    @IBAction func showCalendar(_ sender: NSButton){
         self.createCalenderPopover()
-    	let date = self.dateFormatter.dateFromString(dateField.stringValue)
+    	let date = self.dateFormatter.date(from: dateField.stringValue)
     	self.calendarView.date = date
     	self.calendarView.selectedDate = date;
         print("\(date) \(self.calendarView.selectedDate)")
         
         let cellRect = sender.bounds
-        self.calendarPopover?.showRelativeToRect(cellRect, ofView: sender, preferredEdge: .MaxY)
+        self.calendarPopover?.show(relativeTo: cellRect, of: sender, preferredEdge: .maxY)
     }
     
     func createCalenderPopover(){
@@ -48,17 +48,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, LunarCalendarViewDelegate {
             myPopover!.contentViewController = self.calendarView
             myPopover!.appearance = NSAppearance(named: "NSAppearanceNameAqua")
             myPopover!.animates = true
-            myPopover!.behavior = NSPopoverBehavior.Transient
+            myPopover!.behavior = NSPopoverBehavior.transient
         }
         self.calendarPopover = myPopover
     }
 
-    func didSelectDate(selectedDate: NSDate) {
+    func didSelectDate(_ selectedDate: Date) {
         self.calendarPopover?.close()
-        self.dateField.stringValue = self.dateFormatter.stringFromDate(selectedDate)
+        self.dateField.stringValue = self.dateFormatter.string(from: selectedDate)
     }
     
-    func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
 }
